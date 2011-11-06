@@ -3,6 +3,7 @@ package com.j2eegeek.mongodb.client;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * The <code>ZipCodeDBInsertDeleteClient</code> class demonstrates some simple insert, update and delete
@@ -15,8 +16,9 @@ public class ZipCodeDBInsertDeleteClient {
 
     public static void main(String[] args) throws UnknownHostException {
         Mongo mongo = new Mongo("localhost", 27017);
-        DB zipCodeDB = mongo.getDB("ZipCodes");
 
+        //Let's get the zip codes database.
+        DB zipCodeDB = mongo.getDB("ZipCodes");
         DBCollection dbCollection = zipCodeDB.getCollection("zips");
 
         BasicDBObject zipCodeEntry = new BasicDBObject();

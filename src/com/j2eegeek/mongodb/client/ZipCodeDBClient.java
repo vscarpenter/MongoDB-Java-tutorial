@@ -3,6 +3,7 @@ package com.j2eegeek.mongodb.client;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,6 +18,14 @@ public class ZipCodeDBClient {
     public static void main(String[] args) throws UnknownHostException {
 
         Mongo mongo = new Mongo("localhost", 27017);
+
+        //Let's get a list of all of the databases on the server.
+        List<String> databaseNames = mongo.getDatabaseNames();
+        for (String databaseName : databaseNames) {
+            System.out.println("databaseName = " + databaseName);
+        }
+
+        //Let's get the zip codes database.
         DB zipCodeDB = mongo.getDB("ZipCodes");
 
         //Let's get all of the collections in the db
@@ -35,7 +44,8 @@ public class ZipCodeDBClient {
         System.out.println("dbCursor.size() = " + dbCursor.size());
 
         while (dbCursor.hasNext()) {
-            System.out.println("dbCursor.next() = " + dbCursor.next());
+            //commented this out as it will spit out 30,000 lines. uncomment if you are testing.
+//            System.out.println("dbCursor.next() = " + dbCursor.next());
         }
 
         dbCursor.close();
