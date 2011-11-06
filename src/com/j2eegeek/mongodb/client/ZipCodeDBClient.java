@@ -18,6 +18,7 @@ public class ZipCodeDBClient {
     public static void main(String[] args) throws UnknownHostException {
 
         Mongo mongo = new Mongo("localhost", 27017);
+//        Mongo mongo = new Mongo("192.168.1.105", 27017);
 
         //Let's get a list of all of the databases on the server.
         List<String> databaseNames = mongo.getDatabaseNames();
@@ -44,7 +45,7 @@ public class ZipCodeDBClient {
         System.out.println("dbCursor.size() = " + dbCursor.size());
 
         while (dbCursor.hasNext()) {
-            //commented this out as it will spit out 30,000 lines. uncomment if you are testing.
+            //commented this out as it will spit out 30,000 lines. uncomment if you are testing or you want to see the data.
 //            System.out.println("dbCursor.next() = " + dbCursor.next());
         }
 

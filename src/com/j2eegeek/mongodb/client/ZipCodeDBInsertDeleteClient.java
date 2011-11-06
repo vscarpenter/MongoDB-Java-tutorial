@@ -3,7 +3,6 @@ package com.j2eegeek.mongodb.client;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
-import java.util.List;
 
 /**
  * The <code>ZipCodeDBInsertDeleteClient</code> class demonstrates some simple insert, update and delete
@@ -16,6 +15,7 @@ public class ZipCodeDBInsertDeleteClient {
 
     public static void main(String[] args) throws UnknownHostException {
         Mongo mongo = new Mongo("localhost", 27017);
+//        Mongo mongo = new Mongo("192.168.1.105", 27017);   //internal MongoDB server
 
         //Let's get the zip codes database.
         DB zipCodeDB = mongo.getDB("ZipCodes");
@@ -29,8 +29,12 @@ public class ZipCodeDBInsertDeleteClient {
         zipCodeEntry.put("state", "WI");
         WriteResult insertResult = dbCollection.insert(zipCodeEntry);
 
-        if (insertResult.getError() != null) {
-            System.out.println("insertResult.getError() = " + insertResult.getError());
+        if (insertResult.getLastError() != null) {
+            //MongoDB does not wait for a response by default when writing to the database. Use the getLastError
+            //command to ensure that operations have succeeded.
+            CommandResult commandResult = insertResult.getLastError();
+            //do something meaningful in a real app instead of just printing out the error message
+            System.out.println("commandResult.getErrorMessage() = " + commandResult.getErrorMessage());
         } else {
             System.out.println("No errors inserting a new document into the collection");
         }
