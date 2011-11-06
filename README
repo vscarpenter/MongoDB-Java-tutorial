@@ -1,0 +1,13 @@
+This is a simple tutorial using Java and MongoDB database.
+
+This sample application includes the MongoDB driver from GitHub - https://github.com/mongodb/mongo-java-driver/downloads
+
+This application uses the sample zip code collection or database that's available for download using the following
+url: http://media.mongodb.org/zips.json
+
+Once you install MongoDB on your machine, import the zips.json file using the following command:
+
+    mongoimport.exe --db ZipCodes --collection zips --file zips.json
+
+Once the data is imported, using the command line mongo tools to validate the load of the data or run
+the Java class that's included here.
