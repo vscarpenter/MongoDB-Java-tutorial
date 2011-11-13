@@ -17,8 +17,8 @@ public class ZipCodeDBClient {
 
     public static void main(String[] args) throws UnknownHostException {
 
-        Mongo mongo = new Mongo("localhost", 27017);
-//        Mongo mongo = new Mongo("192.168.1.105", 27017);
+//        Mongo mongo = new Mongo("localhost", 27017);
+        Mongo mongo = new Mongo("192.168.1.106", 27017);
 
         //Let's get a list of all of the databases on the server.
         List<String> databaseNames = mongo.getDatabaseNames();
@@ -44,10 +44,10 @@ public class ZipCodeDBClient {
         DBCursor dbCursor = dbCollection.find();
         System.out.println("dbCursor.size() = " + dbCursor.size());
 
-        while (dbCursor.hasNext()) {
-            //commented this out as it will spit out 30,000 lines. uncomment if you are testing or you want to see the data.
+        //commented this out as it will spit out 30,000 lines. uncomment if you are testing or you want to see the data.
+//        while (dbCursor.hasNext()) {
 //            System.out.println("dbCursor.next() = " + dbCursor.next());
-        }
+//        }
 
         dbCursor.close();
 
@@ -55,6 +55,7 @@ public class ZipCodeDBClient {
         BasicDBObject zipQuery = new BasicDBObject("zip", "53045");
 
         DBCursor zipSearchCursor = dbCollection.find(zipQuery);
+        System.out.println("zipSearchCursor.count() = " + zipSearchCursor.count());
         while (zipSearchCursor.hasNext()) {
             System.out.println("zipSearchCursor.next() = " + zipSearchCursor.next());
         }
@@ -71,6 +72,15 @@ public class ZipCodeDBClient {
         }
 
         citySearchCursor.close();
+
+        //Let's see if we can skip, limit, etc searches.
+        BasicDBObject anotherCitySearch = new BasicDBObject("city", "BOSTON");
+        DBCursor anotherCityCursor = dbCollection.find(anotherCitySearch).limit(5);  //limit to 5 results
+
+        System.out.println("anotherCityCursor.count() = " + anotherCityCursor.count());
+        while (anotherCityCursor.hasNext()) {
+            System.out.println("anotherCityCursor.next() = " + anotherCityCursor.next());
+        }
 
         //Close the underlying connection.
         mongo.close();
