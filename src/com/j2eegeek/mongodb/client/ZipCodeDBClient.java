@@ -17,8 +17,8 @@ public class ZipCodeDBClient {
 
     public static void main(String[] args) throws UnknownHostException {
 
-//        Mongo mongo = new Mongo("localhost", 27017);
-        Mongo mongo = new Mongo("192.168.1.106", 27017);
+        Mongo mongo = new Mongo("localhost", 27017);
+//        Mongo mongo = new Mongo("192.168.1.106", 27017);
 
         //Let's get a list of all of the databases on the server.
         List<String> databaseNames = mongo.getDatabaseNames();
